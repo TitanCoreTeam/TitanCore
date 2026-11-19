@@ -17,11 +17,6 @@
   <a href="package.json"><img src="https://img.shields.io/badge/Vue-v3.5.38-42b883.svg" alt="Vue 3" /></a>
 </p>
 
----
-
-[English Documentation (英文文档)](README_en.md) | [构建与依赖全景指南](BUILD.md)
-
----
 
 ## 📖 项目愿景
 
