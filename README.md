@@ -40,9 +40,10 @@
 - <img src="https://github.com/user-attachments/assets/37af7e75-43df-45e3-bf8c-d76eedd52d81" width="16"/> [软件官网下载](https://tc.modvips.com/)
 - <img src="https://github.com/github.png" width="16"/> [GitHub官方下载](https://github.com/TitanCoreTeam/TitanCore/releases)
 - <img src="https://gitee.com/favicon.ico" width="16"/> [码云官方下载](https://gitee.com/cclive-zhuang/TitanCore/releases)
+- 📥[电信线路](https://tc.gamefun365.com/d/titan/titan/TitanCore%20Setup%202.1.5.zip?sign=3hIN6va1CQCYqAZHcPiCG_97R0HEp92kQjhaIKL7nIo=:0)
+- 📥[移动线路](https://tc.gamefun365.com/d/tc/TitanCore%20Setup%202.1.5.zip?sign=wR1ZmawBVOTfaWn8DB1CQQvZrF-FY6BUpr9W5XiQ8Q8=:0)
 - <img src="https://pc.woozooo.com/favicon.ico" width="16"/> [蓝奏云](https://wwbtg.lanzn.com/iY3pk4g78vsf)
 - <img src="https://pan.quark.cn/favicon.ico" width="16"/> [夸克网盘](https://pan.quark.cn/s/a9109aad9338#/list/share)
-
 
 
 
