@@ -27,12 +27,15 @@
 [![NET 7.0](https://img.shields.io/badge/dotnet-7.0-512bd4.svg?style=flat-square&color=512bd4)](https://learn.microsoft.com/zh-cn/dotnet/core/whats-new/dotnet-7)
 [![C# 11](https://img.shields.io/badge/c%23-11-239120.svg?style=flat-square&color=239120)](https://learn.microsoft.com/zh-cn/dotnet/csharp/whats-new/csharp-11)
 
-[![QQ群](https://img.shields.io/badge/QQ群-1075291325-12b7f5.svg?style=flat-square&color=12b7f5&logo=qq)](https://qm.qq.com/q/5af5EvIjXa)
 [![TitanCore玩家社区](https://img.shields.io/badge/TitanCore玩家社区-modvips.com-222222.svg?style=flat-square&color=222222&logo=homebrew)](https://www.modvips.com/)
 [![GitHub Star](https://img.shields.io/github/stars/TitanCoreTeam/TitanCore.svg?logo=github&style=flat-square)](https://github.com/TitanCoreTeam/TitanCore)
 [![Gitee Fork](https://gitee.com/cclive-zhuang/TitanCore/badge/fork.svg)](https://gitee.com/cclive-zhuang/TitanCore)
 [![爱发电](https://img.shields.io/badge/爱发电-TitanCore-pink.svg?style=flat-square&color=ea4aaa&logo=github-sponsors)](https://ifdian.net/a/TitanCore)
 [![Bilibili](https://img.shields.io/badge/bilibili-everran6-blue.svg?style=flat-square&logo=bilibili)](https://space.bilibili.com/1028735427?spm_id_from=333.337.0.0)
+
+[![QQ群-官方1群](https://img.shields.io/badge/QQ群-1075291325-12b7f5.svg?style=flat-square&color=12b7f5&logo=qq)](https://qm.qq.com/q/5af5EvIjXa)
+[![QQ群-官方2群](https://img.shields.io/badge/QQ群-1083511329-12b7f5.svg?style=flat-square&color=12b7f5&logo=qq)](https://qm.qq.com/q/gijdE6FQtO)
+[![QQ群-官方3群](https://img.shields.io/badge/QQ群-577026760-12b7f5.svg?style=flat-square&color=12b7f5&logo=qq)](https://qm.qq.com/q/zbPvqLZkc0)
 
 </div>
 
