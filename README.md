@@ -1,5 +1,6 @@
-
-
+<div align="center">
+<img width="100" height="100" alt="图片商标" src="https://github.com/user-attachments/assets/37af7e75-43df-45e3-bf8c-d76eedd52d81">
+</div>
 
 <h1 align="center">TitanCore (泰坦核心) </h1>
 
@@ -11,13 +12,11 @@
 <img width="150" height="150" alt="picture猫猫头图" src="https://github.com/user-attachments/assets/dd316ec1-fba0-488c-a51e-fcc03a69e131">
 </div>
 
-<p align="center">
-  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License" /></a>
-  <a href="BUILD.md"><img src="https://img.shields.io/badge/Build-Passing-brightgreen.svg" alt="Build Status" /></a>
-  <a href="package.json"><img src="https://img.shields.io/badge/Electron-v42.4.1-blueviolet.svg" alt="Electron" /></a>
-  <a href="package.json"><img src="https://img.shields.io/badge/Vue-v3.5.38-42b883.svg" alt="Vue 3" /></a>
-</p>
+<div align="center">
 
+[![QQ群](https://img.shields.io/badge/QQ群-1075291325-blue.svg?style=flat-square&color=12b7f5&logo=qq)](https://qm.qq.com/q/5af5EvIjXa)
+[![TitanCore玩家社区](https://img.shields.io/badge/TitanCore玩家社区-modvips.com-grey.svg?style=flat-square&color=222222&logo=homebrew)](https://www.modvips.com/)
+</div>
 
 ## 📖 项目愿景
 
