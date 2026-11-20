@@ -14,8 +14,16 @@
 
 <div align="center">
 
-[![QQ群](https://img.shields.io/badge/QQ群-1075291325-blue.svg?style=flat-square&color=12b7f5&logo=qq)](https://qm.qq.com/q/5af5EvIjXa)
-[![TitanCore玩家社区](https://img.shields.io/badge/TitanCore玩家社区-modvips.com-grey.svg?style=flat-square&color=222222&logo=homebrew)](https://www.modvips.com/)
+[![GitHub Star](https://img.shields.io/github/stars/TitanCoreTeam/TitanCore?style=flat-square&color=f1c40f)](https://github.com/TitanCoreTeam/TitanCore/stargazers)
+[![GitHub Fork](https://img.shields.io/github/forks/TitanCoreTeam/TitanCore?style=flat-square&color=2ecc71)](https://github.com/TitanCoreTeam/TitanCore/network/members)
+[![GitHub Repo Languages](https://img.shields.io/github/languages/top/TitanCoreTeam/TitanCore?style=flat-square&color=e74c3c)](https://github.com/TitanCoreTeam/TitanCore/search?l=c%23)
+[![NET 7.0](https://img.shields.io/badge/dotnet-7.0-512bd4.svg?style=flat-square&color=512bd4)](https://learn.microsoft.com/zh-cn/dotnet/core/whats-new/dotnet-7)
+[![C# 11](https://img.shields.io/badge/c%23-11-239120.svg?style=flat-square&color=239120)](https://learn.microsoft.com/zh-cn/dotnet/csharp/whats-new/csharp-11)
+
+[![QQ群](https://img.shields.io/badge/QQ群-1075291325-12b7f5.svg?style=flat-square&color=12b7f5&logo=qq)](https://qm.qq.com/q/5af5EvIjXa)
+[![TitanCore玩家社区](https://img.shields.io/badge/TitanCore玩家社区-modvips.com-222222.svg?style=flat-square&color=222222&logo=homebrew)](https://www.modvips.com/)
+[![GitHub Star](https://img.shields.io/github/stars/TitanCoreTeam/TitanCore.svg?logo=github&style=flat-square)](https://github.com/TitanCoreTeam/TitanCore)
+
 </div>
 
 ## 📖 项目愿景
