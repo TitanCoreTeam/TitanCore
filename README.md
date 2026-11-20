@@ -5,7 +5,7 @@
 <h1 align="center">TitanCore (泰坦核心) </h1>
 
 <p align="center">
-  <b>TitanCore｜是一款干净、透明、现代化的次世代 Steam & 集成游戏工作站为一体的游戏助手</b>
+  <b>TitanCore ｜ 是一款干净、透明、现代化的次世代 Steam & 集成游戏工作站为一体的游戏助手</b>
 </p>
 
 <div align="center">
