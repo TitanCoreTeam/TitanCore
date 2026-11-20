@@ -33,11 +33,21 @@
 [![爱发电](https://img.shields.io/badge/爱发电-TitanCore-pink.svg?style=flat-square&color=ea4aaa&logo=github-sponsors)](https://ifdian.net/a/TitanCore)
 [![Bilibili](https://img.shields.io/badge/bilibili-everran6-blue.svg?style=flat-square&logo=bilibili)](https://space.bilibili.com/1028735427?spm_id_from=333.337.0.0)
 
+</div>
+
+<div align="center">
+  <img width="40" height="40" alt="左箭头" src="https://github.com/user-attachments/assets/c2fb0a94-59cd-4422-a364-26bdd68f3e54" />
+  <span style="font-size:24px; font-weight:bold; color:#ffd066; margin:0 8px; vertical-align: middle;">TitanCore 交流群，欢迎进群交流！</span>
+  <img width="40" height="40" alt="右箭头" src="https://github.com/user-attachments/assets/c2fb0a94-59cd-4422-a364-26bdd68f3e54" />
+</div>
+
+<div align="center">
+
 [![QQ群-官方1群](https://img.shields.io/badge/QQ群-1075291325-12b7f5.svg?style=flat-square&color=12b7f5&logo=qq)](https://qm.qq.com/q/5af5EvIjXa)
 [![QQ群-官方2群](https://img.shields.io/badge/QQ群-1083511329-12b7f5.svg?style=flat-square&color=12b7f5&logo=qq)](https://qm.qq.com/q/gijdE6FQtO)
 [![QQ群-官方3群](https://img.shields.io/badge/QQ群-577026760-12b7f5.svg?style=flat-square&color=12b7f5&logo=qq)](https://qm.qq.com/q/zbPvqLZkc0)
-
 </div>
+
 
 ## 🚀 下载渠道
 - <img src="https://github.com/user-attachments/assets/37af7e75-43df-45e3-bf8c-d76eedd52d81" width="16"/> [软件官网下载](https://tc.modvips.com/)
