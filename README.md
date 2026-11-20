@@ -35,6 +35,27 @@
 
 </div>
 
+## 🚀 下载渠道
+- <img src="https://github.com/user-attachments/assets/37af7e75-43df-45e3-bf8c-d76eedd52d81" width="16"/> [软件官网](https://tc.modvips.com/)
+- <img src="https://github.com/github.png" width="16"/> [GitHub 发行版](https://github.com/TitanCoreTeam/TitanCore/releases)
+- <img src="https://gitee.com/favicon.ico" width="16"/> [码云 发行版](https://gitee.com/cclive-zhuang/TitanCore/releases)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## 📖 项目愿景
 
 **TitanCore** 是一个专为游戏玩家与极客打造的次时代桌面增强终端。
