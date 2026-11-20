@@ -9,6 +9,13 @@
 </p>
 
 <div align="center">
+
+[English](./README.en.md) | 简体中文
+
+</div>
+
+
+<div align="center">
 <img width="150" height="150" alt="picture猫猫头图" src="https://github.com/user-attachments/assets/dd316ec1-fba0-488c-a51e-fcc03a69e131">
 </div>
 
@@ -24,6 +31,7 @@
 [![TitanCore玩家社区](https://img.shields.io/badge/TitanCore玩家社区-modvips.com-222222.svg?style=flat-square&color=222222&logo=homebrew)](https://www.modvips.com/)
 [![GitHub Star](https://img.shields.io/github/stars/TitanCoreTeam/TitanCore.svg?logo=github&style=flat-square)](https://github.com/TitanCoreTeam/TitanCore)
 [![Gitee Fork](https://gitee.com/cclive-zhuang/TitanCore/badge/fork.svg)](https://gitee.com/cclive-zhuang/TitanCore)
+[![爱发电](https://img.shields.io/badge/爱发电-TitanCore-pink.svg?style=flat-square&color=ea4aaa&logo=github-sponsors)](https://ifdian.net/a/TitanCore)
 
 </div>
 
