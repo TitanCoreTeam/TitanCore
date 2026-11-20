@@ -1,14 +1,15 @@
+
+
+
 <h1 align="center">TitanCore (泰坦核心) </h1>
-
-
 
 <p align="center">
   <b>干净、透明、现代化的次时代 Steam 游戏管理与原生增强工作站</b>
 </p>
 
-<p align="center">
-  <img src="picture%E7%8C%AB%E7%8C%AB%E5%A4%B4%E5%9B%BE.gif" alt="输入图片说明">
-</p>
+<div align="center">
+<img width="150" height="150" alt="picture猫猫头图" src="https://github.com/user-attachments/assets/dd316ec1-fba0-488c-a51e-fcc03a69e131">
+</div>
 
 <p align="center">
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License" /></a>
