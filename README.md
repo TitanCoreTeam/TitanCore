@@ -32,6 +32,7 @@
 [![GitHub Star](https://img.shields.io/github/stars/TitanCoreTeam/TitanCore.svg?logo=github&style=flat-square)](https://github.com/TitanCoreTeam/TitanCore)
 [![Gitee Fork](https://gitee.com/cclive-zhuang/TitanCore/badge/fork.svg)](https://gitee.com/cclive-zhuang/TitanCore)
 [![爱发电](https://img.shields.io/badge/爱发电-TitanCore-pink.svg?style=flat-square&color=ea4aaa&logo=github-sponsors)](https://ifdian.net/a/TitanCore)
+[![Bilibili](https://img.shields.io/badge/bilibili-CC直播落花生-blue.svg?style=flat-square&logo=bilibili)](https://space.bilibili.com/565392232?spm_id_from=333.1007.0.0)
 
 </div>
 
