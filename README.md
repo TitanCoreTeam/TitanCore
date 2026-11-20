@@ -23,6 +23,7 @@
 [![QQ群](https://img.shields.io/badge/QQ群-1075291325-12b7f5.svg?style=flat-square&color=12b7f5&logo=qq)](https://qm.qq.com/q/5af5EvIjXa)
 [![TitanCore玩家社区](https://img.shields.io/badge/TitanCore玩家社区-modvips.com-222222.svg?style=flat-square&color=222222&logo=homebrew)](https://www.modvips.com/)
 [![GitHub Star](https://img.shields.io/github/stars/TitanCoreTeam/TitanCore.svg?logo=github&style=flat-square)](https://github.com/TitanCoreTeam/TitanCore)
+[![Gitee Fork](https://gitee.com/cclive-zhuang/TitanCore/badge/fork.svg)](https://gitee.com/cclive-zhuang/TitanCore)
 
 </div>
 
