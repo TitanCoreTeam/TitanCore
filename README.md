@@ -103,8 +103,12 @@
 </a>
 
 ## ✨ 核心特性
-
-
+<div style="display:flex;gap:4px;">
+<img src="https://github.com/user-attachments/assets/6d797291-77c6-4366-917d-5930b1bc5353" style="width:24%;">
+<img src="https://github.com/user-attachments/assets/004e19b7-109b-452a-8f45-60f33f8bfd9b" style="width:24%;">
+<img src="https://github.com/user-attachments/assets/96ccea82-be7e-4c7e-a295-80e461dc835c" style="width:24%;">
+<img src="https://github.com/user-attachments/assets/891aad6b-bfe8-4d0b-a1ea-4d82cb4fc6cc" style="width:24%;">
+</div>
 
 ## 📄 开源许可证
 
