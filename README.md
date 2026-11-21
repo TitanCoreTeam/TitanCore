@@ -52,12 +52,32 @@
 
 </div>
 
+<div align="center">
+
 ## 📖 项目介绍
-**TitanCore** 是一个专为游戏玩家与极客打造的次时代桌面增强终端。
+
+</div>
 
 <div align="center">
 <img width="1920" height="1080" alt="主页展示" src="https://github.com/user-attachments/assets/afebc546-a160-4d93-aafe-17bf67bfc173" />
 </div>
+
+<p align="center">
+  <b>TitanCore ｜游戏助手页面展示</b>
+</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## 🚀 下载渠道
 - <img src="https://github.com/user-attachments/assets/37af7e75-43df-45e3-bf8c-d76eedd52d81" width="16"/> [软件官网下载](https://tc.modvips.com/)
