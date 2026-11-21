@@ -56,6 +56,23 @@
 <img width="1920" height="1080" alt="主页展示" src="https://github.com/user-attachments/assets/afebc546-a160-4d93-aafe-17bf67bfc173" />
 </div>
 
+<div align="center">
+<table>
+  <tr>
+    <td><img width="480" alt="图片1" src="https://github.com/user-attachments/assets/98757827-6425-4ac1-a161-0b1d7fad0c9e" /></td>
+    <td><img width="480" alt="图片2" src="https://github.com/user-attachments/assets/7267d8e5-c2c0-4113-8f48-a42a7fb542af" /></td>
+  </tr>
+  <tr>
+    <td><img width="480" alt="图片3" src="https://github.com/user-attachments/assets/303a5e32-bc1a-4f4b-bd0c-193eea55e972" /></td>
+    <td><img width="480" alt="图片4" src="https://github.com/user-attachments/assets/9627c745-1118-44c6-9083-40773db77b14" /></td>
+  </tr>
+  <tr>
+    <td><img width="480" alt="图片5" src="https://github.com/user-attachments/assets/c4f08c73-62ad-43aa-aa11-ee6da4cf92ad" /></td>
+    <td><img width="480" alt="图片6" src="https://github.com/user-attachments/assets/21d6c7e6-7c3b-42b3-b418-3cf747e510bb" /></td>
+  </tr>
+</table>
+</div>
+
 <p align="center">
   <b>TitanCore ｜游戏助手页面展示</b>
 </p>
@@ -84,6 +101,8 @@
 <a href="https://www.microsoft.com/software-download/windows10ISO" target="_blank">
 <img width="250" height="60" alt="windows10图片" src="https://github.com/user-attachments/assets/cee6c7d4-acb9-4b48-993d-6eaa3283774c" />
 </a>
+
+
 
 
 
