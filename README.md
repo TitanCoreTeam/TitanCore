@@ -110,6 +110,10 @@
 <img src="https://github.com/user-attachments/assets/891aad6b-bfe8-4d0b-a1ea-4d82cb4fc6cc" style="width:24%;">
 </div>
 
+## ⚠️ 注意事项（叠甲）
+<b> 本工具仅仅只是为了帮玩家在踩雷烂作和繁琐锁区前先避坑试玩。根据GitHub:octocat: [GitHub 开源应用程序条款和条件条款第123款第2条](https://docs.github.com/zh/site-policy/github-terms/github-open-source-applications-terms-and-conditions)相关条例规定与共同开源共识与开发底线，开发团队不会且杜绝支持D加密&拥有多人联机且带有反作弊的游戏，不会提供且支持影响游戏公平的盗联服务。如果遇到真正喜欢的作品，请一定要前往 Steam 补票支持正版创作者！</b>
+
+
 ## 📄 开源许可证
 
 
