@@ -58,6 +58,16 @@
 - <img src="https://pc.woozooo.com/favicon.ico" width="16"/> [蓝奏云](https://wwbtg.lanzn.com/iY3pk4g78vsf)
 - <img src="https://pan.quark.cn/favicon.ico" width="16"/> [夸克网盘](https://pan.quark.cn/s/a9109aad9338#/list/share)
 
+## 🖥 支持的操作系统
+<a href="https://www.microsoft.com/software-download/windows11" target="_blank">
+<img width="250" height="60" alt="windows11图片" src="https://github.com/user-attachments/assets/431905b4-ae40-4fa4-9013-7411cb11a944" />
+</a>
+<a href="https://www.microsoft.com/software-download/windows10ISO" target="_blank">
+<img width="250" height="60" alt="windows10图片" src="https://github.com/user-attachments/assets/cee6c7d4-acb9-4b48-993d-6eaa3283774c" />
+</a>
+
+
+
 
 
 
