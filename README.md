@@ -102,46 +102,10 @@
 <img width="250" height="60" alt="windows10图片" src="https://github.com/user-attachments/assets/cee6c7d4-acb9-4b48-993d-6eaa3283774c" />
 </a>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ## ✨ 核心特性
 
-* 🎮 **本地游戏全景库**：内置高性能 SQLite 引擎（`better-sqlite3`），秒级检索并呈现本地 Steam 游戏元数据与高清封面；
-* ⚡ **纯净挂起注入引擎**：C++ 原生模块（`native/tc_native.cc`）实现低权限令牌降权（Medium Integrity）与挂起创建（`CREATE_SUSPENDED`），避免子进程与反作弊机制冲突；
-* 🚀 **极速并发下载底座**：深度集成开源下载利器 `aria2c`，通过 WebSocket JSON-RPC 协议实现多线程极速并发下载与断点续传；
-* 🎨 **次时代双模视觉架构**：
-  * **硬核机能风 (Minimal Tech)**：冷酷黑曜石质感、机能流光边框、冷光指示器；
-  * **赛博二次元风 (Anime Future)**：灵动渐变、呼吸光效、看板娘实时物理交互；
-* 🛡️ **标准环境变量配置**：敏感节点与云端鉴权全部解耦，支持通过 `.env.example` 轻松接入开发者自建的服务端。
+
 
 ## 📄 开源许可证
 
-本项目基于 **[MIT License](LICENSE)** 协议开源。任何人均可自由使用、复制、修改、合并、发布、分发及销售本软件的副本。
+
