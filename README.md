@@ -2,7 +2,11 @@
 <img width="100" height="100" alt="图片商标" src="https://github.com/user-attachments/assets/37af7e75-43df-45e3-bf8c-d76eedd52d81">
 </div>
 
-<h1 align="center">TitanCore (泰坦核心) </h1>
+<div align="center">
+
+# TitanCore (泰坦核心)
+
+</div>
 
 <p align="center">
   <b>TitanCore ｜ 是一款干净、透明、现代化的次世代 Steam & 集成游戏工作站为一体的游戏助手</b>
@@ -13,7 +17,6 @@
 [English](./README.en.md) | 简体中文
 
 </div>
-
 
 <div align="center">
 <img width="150" height="150" alt="picture猫猫头图" src="https://github.com/user-attachments/assets/dd316ec1-fba0-488c-a51e-fcc03a69e131">
@@ -46,8 +49,15 @@
 [![QQ群-官方1群](https://img.shields.io/badge/QQ群-1075291325-12b7f5.svg?style=flat-square&color=12b7f5&logo=qq)](https://qm.qq.com/q/5af5EvIjXa)
 [![QQ群-官方2群](https://img.shields.io/badge/QQ群-1083511329-12b7f5.svg?style=flat-square&color=12b7f5&logo=qq)](https://qm.qq.com/q/gijdE6FQtO)
 [![QQ群-官方3群](https://img.shields.io/badge/QQ群-577026760-12b7f5.svg?style=flat-square&color=12b7f5&logo=qq)](https://qm.qq.com/q/zbPvqLZkc0)
+
 </div>
 
+## 📖 项目介绍
+**TitanCore** 是一个专为游戏玩家与极客打造的次时代桌面增强终端。
+
+<div align="center">
+<img width="1920" height="1080" alt="主页展示" src="https://github.com/user-attachments/assets/afebc546-a160-4d93-aafe-17bf67bfc173" />
+</div>
 
 ## 🚀 下载渠道
 - <img src="https://github.com/user-attachments/assets/37af7e75-43df-45e3-bf8c-d76eedd52d81" width="16"/> [软件官网下载](https://tc.modvips.com/)
@@ -66,9 +76,6 @@
 <img width="250" height="60" alt="windows10图片" src="https://github.com/user-attachments/assets/cee6c7d4-acb9-4b48-993d-6eaa3283774c" />
 </a>
 
-## 📖 项目介绍
-
-**TitanCore** 是一个专为游戏玩家与极客打造的次时代桌面增强终端。
 
 
 
