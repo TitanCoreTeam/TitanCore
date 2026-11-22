@@ -155,6 +155,30 @@ Var tcDirAutoCorrected
     Pop $R7
 !macroend
 
+; 真正卸载时若 Steam 仍在运行（纯净/注入态会占用 $INSTDIR\ost\OpenSteamTool.dll 及日志句柄），弹窗提示用户手动关闭
+!macro TC_PROMPT_CLOSE_STEAM
+    Push $R9
+    ${Do}
+        ${nsProcess::FindProcess} "steam.exe" $R9
+        ${If} $R9 != 0
+            ${ExitDo}
+        ${EndIf}
+        ${IfNot} ${Silent}
+            ${If} ${Cmd} 'MessageBox MB_RETRYCANCEL|MB_ICONEXCLAMATION "检测到 Steam 正在运行，可能占用 TitanCore 引擎及成就目录导致清理不完整。$\r$\n$\r$\n请先完全退出 Steam，然后点击“重试”继续卸载。" /SD IDCANCEL IDRETRY'
+                Sleep 300
+            ${Else}
+                ${nsProcess::Unload}
+                Pop $R9
+                Quit
+            ${EndIf}
+        ${Else}
+            ${ExitDo}
+        ${EndIf}
+    ${Loop}
+    ${nsProcess::Unload}
+    Pop $R9
+!macroend
+
 ; ==========================================
 ; 默认安装目录预填 (优先沿用非受保护旧安装目录；否则优先 D:\TitanCore，绝不落入 C:\Program Files)
 ; ==========================================
@@ -517,6 +541,9 @@ FunctionEnd
     !insertmacro TC_KILL_AND_WAIT_ALL 1
 
     ${IfNot} ${isUpdated}
+        ; 真正卸载前若检测到 Steam 正在运行，弹窗提示用户先手动关闭，避免占用 $INSTDIR\ost 导致残留
+        !insertmacro TC_PROMPT_CLOSE_STEAM
+
         ; 2. 注册表与环境变量清理 (仅真正卸载时执行)
         SetRegView 64
         DeleteRegValue HKLM "${INSTALL_REGISTRY_KEY}" "InstallLocation"

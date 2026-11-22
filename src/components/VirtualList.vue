@@ -1,0 +1,142 @@
+<template>
+  <div 
+    ref="containerRef" 
+    class="w-full h-full overflow-y-auto scrollbar-hide relative transform-gpu"
+    @scroll="handleScroll"
+  >
+    <div 
+      :style="{ height: totalHeight + 'px' }" 
+      class="absolute inset-x-0 top-0 -z-10 w-full pointer-events-none"
+    ></div>
+
+    <div 
+      :style="{
+        transform: `translate3d(0, ${visibleRange.offsetY}px, 0)`,
+        gap: `${props.gap}px`,
+        padding: `${props.paddingTop}px ${props.paddingX}px ${props.paddingBottom}px`
+      }"
+      class="grid will-change-transform"
+      :class="gridColsClass"
+    >
+      <slot name="default" :items="visibleItems"></slot>
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts" generic="T extends { id: string | number }">
+import { ref, computed, onMounted, onUnmounted } from 'vue'
+
+const props = withDefaults(defineProps<{
+  items: T[]
+  itemHeight?: number
+  columns: number
+  aspectRatio?: number
+  gap?: number
+  paddingX?: number
+  paddingTop?: number
+  paddingBottom?: number
+}>(), {
+  gap: 24,
+  paddingX: 24,
+  paddingTop: 24,
+  paddingBottom: 24
+})
+
+// --- 模块级静态常量，切断响应式开销与 GC 抖动 ---
+const BUFFER_ROWS = 4
+const COL_MAP: Record<number, string> = {
+  1: 'grid-cols-1', 2: 'grid-cols-2', 3: 'grid-cols-3', 4: 'grid-cols-4',
+  5: 'grid-cols-5', 6: 'grid-cols-6', 7: 'grid-cols-7', 8: 'grid-cols-8',
+  9: 'grid-cols-9'
+}
+
+// --- 响应式引用 ---
+const containerRef = ref<HTMLElement | null>(null)
+const scrollTop = ref(0)
+const containerHeight = ref(0)
+const containerWidth = ref(0)
+
+const gridColsClass = computed(() => COL_MAP[props.columns] || 'grid-cols-4')
+
+const dynamicRowHeight = computed(() => {
+  if (!props.aspectRatio || props.aspectRatio <= 0) return props.itemHeight || 360
+  const w = containerWidth.value - (props.paddingX * 2)
+  return w <= 0 ? 0 : ((w - (props.columns - 1) * props.gap) / props.columns) / props.aspectRatio + props.gap
+})
+
+const totalRows = computed(() => props.columns < 1 ? 0 : Math.ceil(props.items.length / props.columns))
+const totalHeight = computed(() => {
+  if (totalRows.value <= 0 || dynamicRowHeight.value <= 0) return 0
+  return props.paddingTop + props.paddingBottom + totalRows.value * dynamicRowHeight.value - props.gap
+})
+
+const visibleRange = computed(() => {
+  const h = dynamicRowHeight.value
+  if (h <= 0 || props.columns === 0 || containerHeight.value <= 0) return { start: 0, end: 0, offsetY: 0 }
+
+  const effectiveScrollTop = Math.max(0, scrollTop.value - props.paddingTop)
+  const startRow = Math.floor(effectiveScrollTop / h)
+  const minRow = Math.max(0, startRow - BUFFER_ROWS)
+  const maxRow = startRow + Math.ceil(containerHeight.value / h) + BUFFER_ROWS
+
+  return {
+    start: minRow * props.columns,
+    end: Math.min(props.items.length, maxRow * props.columns),
+    offsetY: minRow * h
+  }
+})
+
+const visibleItems = computed(() => {
+  const { start, end } = visibleRange.value
+  return props.items.slice(start, end)
+})
+
+// 单行 rAF 帧合并，避免 Electron 主线程 Reflow 竞态碰撞
+let rafId: number | null = null
+const handleScroll = (e: Event) => {
+  if (rafId) cancelAnimationFrame(rafId)
+  rafId = requestAnimationFrame(() => {
+    rafId = null
+    scrollTop.value = (e.target as HTMLElement)?.scrollTop || 0
+  })
+}
+
+let resizeObserver: ResizeObserver | null = null
+
+const initResizeObserver = () => {
+  if (!containerRef.value) return
+  // 直接解构首个 entry，规避冗余 for...of；隐藏态(0尺寸)保持静默，恢复可见时同步真实 scrollTop 防止切走重置导致空白
+  resizeObserver = new ResizeObserver(([entry]) => {
+    const { height, width } = entry.contentRect
+    if (height > 0) containerHeight.value = height
+    if (width > 0) containerWidth.value = width
+    if (height > 0 && width > 0 && containerRef.value) {
+      scrollTop.value = containerRef.value.scrollTop || 0
+    }
+  })
+  resizeObserver.observe(containerRef.value)
+}
+
+const scrollToTop = () => containerRef.value && (containerRef.value.scrollTop = scrollTop.value = 0)
+const setScrollTop = (y: number) => containerRef.value && (containerRef.value.scrollTop = y)
+const getScrollTop = () => scrollTop.value
+
+defineExpose({ scrollToTop, setScrollTop, getScrollTop })
+
+onMounted(() => {
+  if (containerRef.value) {
+    const el = containerRef.value
+    const isVisible = el.getClientRects().length > 0
+    if (el.clientHeight > 0) containerHeight.value = el.clientHeight
+    else if (isVisible) containerHeight.value = 800
+    if (el.clientWidth > 0) containerWidth.value = el.clientWidth
+    else if (isVisible) containerWidth.value = 1200
+    initResizeObserver()
+  }
+})
+
+onUnmounted(() => {
+  if (rafId) cancelAnimationFrame(rafId)
+  resizeObserver && (resizeObserver.disconnect(), resizeObserver = null)
+})
+</script>

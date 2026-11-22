@@ -1,0 +1,186 @@
+<template>
+  <BaseModal 
+    :visible="visible" 
+    @close="close" 
+    :show-close="true"
+    :container-class="containerClass"
+  >
+    <!-- 顶部流光细线 -->
+    <div class="absolute top-0 left-0 right-0 h-px pointer-events-none" :class="topGlowClass"></div>
+
+    <div class="flex flex-col gap-5">
+      <h3 class="text-base font-bold tracking-wide flex items-center gap-2.5" :class="titleTextClass">
+        <span class="w-[3px] h-[18px] rounded-sm" :class="accentBarClass"></span>
+        {{ t('settings.exp.title') }}
+      </h3>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <div v-for="item in switchItems" :key="item.key" class="p-4 rounded-lg border flex items-center justify-between gap-3 transition-colors" :class="cardClass">
+          <span class="text-sm font-bold truncate" :class="cardTextClass">{{ item.icon }} {{ t(item.labelKey) }}</span>
+          <button 
+            type="button" 
+            role="switch" 
+            :aria-checked="item.checked" 
+            @click="toggle(item.key)"
+            class="w-10 h-[22px] rounded-full transition-colors relative cursor-pointer shrink-0"
+            :class="item.checked ? switchActiveClass : switchInactiveClass"
+          >
+            <span 
+              class="absolute top-[3px] w-4 h-4 rounded-full transition-all" 
+              :class="[
+                item.checked ? 'left-[21px]' : 'left-[3px]',
+                currentTheme === 'paper' || currentTheme === 'anime' ? 'bg-white' : 'bg-black'
+              ]"
+            ></span>
+          </button>
+        </div>
+      </div>
+
+      <!-- fix50: 工具箱(注册表驱动,后续工具零改动本模态框) -->
+      <div class="flex flex-col gap-3">
+        <h4 class="text-xs font-bold tracking-widest uppercase flex items-center gap-2.5 pt-1" :class="sectionTitleClass">
+          <span class="w-[3px] h-[14px] rounded-sm" :class="accentBarClass"></span>
+          {{ t('settings.exp.toolsTitle') }}
+        </h4>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <ToolCard v-for="tool in TOOLS" :key="tool.id" :tool="tool" />
+        </div>
+      </div>
+    </div>
+  </BaseModal>
+</template>
+
+<script setup lang="ts">
+import { ref, computed, onMounted } from 'vue'
+import BaseModal from '../common/BaseModal.vue'
+import ToolCard from './ToolCard.vue'
+import { TOOLS } from './toolRegistry'
+import { t } from '../../i18n'
+import { useTheme } from '../../composables/useTheme'
+import { useLibraryStore } from '../../stores/libraryStore'
+
+defineProps<{ visible: boolean }>()
+const emit = defineEmits<{ (e: 'update:visible', v: boolean): void; (e: 'close'): void }>()
+
+const { currentTheme } = useTheme()
+
+const containerClass = computed(() => {
+  if (currentTheme.value === 'paper') {
+    return 'max-w-3xl w-full bg-[#fffdf7] border border-[#5a4e38]/15 rounded-2xl shadow-[0_24px_60px_-14px_rgba(62,54,38,0.22)] text-[#353024] p-7 relative overflow-hidden'
+  }
+  if (currentTheme.value === 'anime') {
+    return 'max-w-3xl w-full bg-white/95 border-2 border-[#ffc2d9] rounded-3xl shadow-[0_20px_60px_rgba(255,140,185,0.22)] text-[#4a3240] p-7 relative overflow-hidden'
+  }
+  if (currentTheme.value === 'minimal') {
+    return 'max-w-3xl w-full bg-[#0e1526]/78 border border-white/20 rounded-3xl shadow-[0_28px_70px_rgba(0,0,0,0.68),inset_0_1.5px_1px_rgba(255,255,255,0.38)] text-[#f4f8ff] backdrop-blur-3xl p-7 relative overflow-hidden'
+  }
+  return 'max-w-3xl w-full bg-[#0c0d12]/95 border border-white/10 shadow-[0_16px_48px_rgba(0,0,0,0.85)] text-white p-7 relative overflow-hidden'
+})
+
+const topGlowClass = computed(() => {
+  if (currentTheme.value === 'paper') return 'bg-gradient-to-r from-[#a8ba78]/35 via-[#667b48]/65 to-[#d4b77b]/40 h-[2px]'
+  if (currentTheme.value === 'anime') return 'bg-gradient-to-r from-transparent via-[#ff85b3]/70 to-transparent'
+  if (currentTheme.value === 'minimal') return 'bg-gradient-to-r from-transparent via-white/50 to-transparent'
+  return 'bg-gradient-to-r from-transparent via-[#00f3ff]/40 to-transparent'
+})
+
+const titleTextClass = computed(() => {
+  if (currentTheme.value === 'paper') return 'text-[#353024]'
+  if (currentTheme.value === 'anime') return 'text-[#1e192b]'
+  return 'text-white'
+})
+
+const accentBarClass = computed(() => {
+  if (currentTheme.value === 'paper') return 'bg-[#667b48] rounded-full'
+  if (currentTheme.value === 'anime') return 'bg-gradient-to-b from-[#ff85b3] to-[#ff9ec7] shadow-[0_0_8px_rgba(255,133,179,0.5)]'
+  if (currentTheme.value === 'minimal') return 'bg-white shadow-[0_0_8px_rgba(255,255,255,0.6)]'
+  return 'bg-[#00f3ff] shadow-[0_0_8px_rgba(0,243,255,0.5)]'
+})
+
+const cardClass = computed(() => {
+  if (currentTheme.value === 'paper') return 'bg-[#f6f0e1] border-[#5a4e38]/15'
+  if (currentTheme.value === 'anime') return 'bg-pink-50/40 border-pink-200/70'
+  if (currentTheme.value === 'minimal') return 'bg-white/5 border-white/15'
+  return 'bg-white/[0.02] border-white/5'
+})
+
+const cardTextClass = computed(() => {
+  if (currentTheme.value === 'paper') return 'text-[#353024]'
+  if (currentTheme.value === 'anime') return 'text-[#1e192b]'
+  return 'text-white'
+})
+
+const sectionTitleClass = computed(() => {
+  if (currentTheme.value === 'paper') return 'text-[#6b6251]'
+  if (currentTheme.value === 'anime') return 'text-[#64748b]'
+  return 'text-zinc-400'
+})
+
+const switchActiveClass = computed(() => {
+  if (currentTheme.value === 'paper') return 'bg-[#667b48]'
+  if (currentTheme.value === 'anime') return 'bg-gradient-to-r from-[#ff85b3] to-[#ff9ec7]'
+  if (currentTheme.value === 'minimal') return 'bg-gradient-to-r from-white to-[#bae6fd]'
+  return 'bg-[#00f3ff]'
+})
+
+const switchInactiveClass = computed(() => {
+  if (currentTheme.value === 'paper') return 'bg-[#d8cfbd]'
+  if (currentTheme.value === 'anime') return 'bg-slate-200'
+  if (currentTheme.value === 'minimal') return 'bg-white/10'
+  return 'bg-white/10'
+})
+
+const libraryStore = useLibraryStore()
+const prefEnableOnlineLaunch = ref(false)
+const prefEnableLuaImport = ref(false)
+const prefLaunchEnhance = ref(false)
+const prefAutoStartTc = ref(false)
+const prefEnableGameFastLaunch = computed(() => libraryStore.prefEnableGameFastLaunch)
+
+const switchItems = computed(() => [
+  { key: 'pref_enable_online_launch', icon: '🎮', labelKey: 'settings.exp.onlineLaunch', checked: prefEnableOnlineLaunch.value },
+  { key: 'pref_enable_lua_import', icon: '📥', labelKey: 'settings.exp.luaImport', checked: prefEnableLuaImport.value },
+  { key: 'pref_enable_game_fast_launch', icon: '⚡', labelKey: 'settings.exp.gameFastLaunch', checked: prefEnableGameFastLaunch.value },
+  { key: 'pref_launch_enhance', icon: '🚀', labelKey: 'settings.exp.launchEnhance', checked: prefLaunchEnhance.value },
+  { key: 'pref_auto_start_tc', icon: '🔄', labelKey: 'settings.exp.autoStartTc', checked: prefAutoStartTc.value }
+])
+
+async function loadPrefs() {
+  try {
+    const [o, l, le, as] = await Promise.all([
+      window.electron.invoke('sys:get-config', 'pref_enable_online_launch'),
+      window.electron.invoke('sys:get-config', 'pref_enable_lua_import'),
+      window.electron.invoke('sys:get-config', 'pref_launch_enhance'),
+      window.electron.invoke('sys:get-auto-start')
+    ])
+    prefEnableOnlineLaunch.value = !!o
+    prefEnableLuaImport.value = !!l
+    prefLaunchEnhance.value = !!le
+    prefAutoStartTc.value = !!as
+    await libraryStore.loadGameFastLaunchPref()
+  } catch { /* 读取失败按默认关 */ }
+}
+
+async function toggle(key: string) {
+  let next = false
+  if (key === 'pref_enable_online_launch') next = prefEnableOnlineLaunch.value = !prefEnableOnlineLaunch.value
+  else if (key === 'pref_enable_lua_import') next = prefEnableLuaImport.value = !prefEnableLuaImport.value
+  else if (key === 'pref_launch_enhance') next = prefLaunchEnhance.value = !prefLaunchEnhance.value
+  else if (key === 'pref_auto_start_tc') {
+    next = prefAutoStartTc.value = !prefAutoStartTc.value
+    try { await window.electron.invoke('sys:set-auto-start', next) } catch { /* 持久化失败仅影响重启后 */ }
+    return
+  }
+  else if (key === 'pref_enable_game_fast_launch') {
+    await libraryStore.setGameFastLaunchPref(!libraryStore.prefEnableGameFastLaunch)
+    return
+  }
+  try { await window.electron.invoke('sys:set-config', key, next) } catch { /* 持久化失败仅影响重启后 */ }
+}
+
+onMounted(loadPrefs)
+function close() {
+  emit('update:visible', false)
+  emit('close')
+}
+</script>
