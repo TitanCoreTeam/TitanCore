@@ -116,6 +116,8 @@
 <a href="https://docs.github.com/zh/site-policy/github-terms/github-open-source-applications-terms-and-conditions">GitHub 开源应用程序条款和条件</a>
 相关条例规定与共同开源共识与开发底线，开发团队不会且杜绝支持D加密&拥有多人联机且带有反作弊的游戏，不会提供且支持影响游戏公平的盗联服务。如果遇到真正喜欢的作品，请一定要前往 Steam 补票支持正版创作者！</b>
 
-## 📄 开源许可证
+## 📄 国家软件版权许可证
+<img width="300" height="500" alt="23b1d58be8e5ee3784def7f9a2c5b9c6" src="https://github.com/user-attachments/assets/db8d487f-15b9-4b8c-9006-b1c24d660dc9" />
+
 
 
