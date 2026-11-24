@@ -770,6 +770,7 @@ const currentColumns = ref(5)
 const themeAspectRatio = computed(() => 2 / 3)
 const updateColumns = () => {
   const w = window.innerWidth
+  if (w < 320) return
   if (currentTheme.value === 'paper' || currentTheme.value === 'minimal') {
     if (w < 960) currentColumns.value = 4
     else if (w < 1200) currentColumns.value = 5
@@ -943,7 +944,11 @@ const handleOnlineLaunch = async (item: LibraryItem) => {
       <div style="text-align:left; color:${isPaper ? '#6b6251' : '#aaa'}; font-size:14px; line-height:1.8;">
         <p style="margin-bottom:12px;">${t('library.launch.rule1')}</p>
         <p style="margin-bottom:12px;">${t('library.launch.rule2')}</p>
-        <p>${t('library.launch.rule3')}</p>
+        <p style="margin-bottom:14px;">${t('library.launch.rule3')}</p>
+        <label for="tc-online-realappid" style="display:flex; align-items:center; gap:8px; padding:8px 10px; border-radius:8px; background:${isPaper ? 'rgba(102,123,72,0.08)' : 'rgba(255,255,255,0.05)'}; border:1px solid ${isPaper ? 'rgba(90,78,56,0.15)' : 'rgba(255,255,255,0.1)'}; color:${isPaper ? '#353024' : '#ddd'}; font-size:13px; cursor:pointer; user-select:none;">
+          <input id="tc-online-realappid" type="checkbox" style="width:15px; height:15px; accent-color:${isPaper ? '#667b48' : '#00f3ff'}; cursor:pointer;" />
+          <span>${t('library.launch.realAppIdOpt')}</span>
+        </label>
       </div>
     `,
     icon: 'warning',
@@ -955,15 +960,24 @@ const handleOnlineLaunch = async (item: LibraryItem) => {
     confirmButtonColor: isPaper ? '#667b48' : '#00f3ff',
     cancelButtonColor: isPaper ? '#efe8d8' : '#333',
     reverseButtons: true,
-    allowOutsideClick: false
+    allowOutsideClick: false,
+    preConfirm: () => ({
+      realAppId: Boolean((document.getElementById('tc-online-realappid') as HTMLInputElement | null)?.checked)
+    })
   })
 
   if (!result.isConfirmed) return
 
   try {
-    const res = await window.electron.invoke('titan:launch-game', appId)
+    const res = await window.electron.invoke('titan:launch-game', appId, {
+      onlineFix: true,
+      realAppId: Boolean(result.value?.realAppId)
+    })
     if (!res.success) {
-      tcToast(t('library.launch.failTitle'), res.msg || (t('library.launch.unknownError')), 'error')
+      const errText = res.msg === 'ERR_PURE_STEAM_NOT_RUNNING'
+        ? t('library.launch.pureNeedSteamFirst')
+        : (res.msg || t('library.launch.unknownError'))
+      tcToast(t('library.launch.failTitle'), errText, 'error')
     }
   } catch (e: any) {
     tcToast(t('library.launch.failTitle'), e.message || (t('library.launch.errorDefault')), 'error')
@@ -1468,7 +1482,7 @@ const batchUninstall = async () => {
     }
   }
   await libraryStore.load()
-  await libraryStore.pushCloud()
+  void libraryStore.pushCloud()
   dropSucceededFromSelection(targets.map(i => i.id))
   titanAlert(t('library.batch.uninstallDoneTitle'), t('library.batch.statOkFail', { ok, fail }), fail > 0 ? 'warning' : 'success')
 }
@@ -1501,7 +1515,7 @@ const batchRemoveRecords = async () => {
     }
   }
   await libraryStore.load()
-  await libraryStore.pushCloud()
+  void libraryStore.pushCloud()
   dropSucceededFromSelection(targets.map(i => i.id))
   titanAlert(t('library.batch.removeDoneTitle'), t('library.batch.statOkFail', { ok: targets.length - fail, fail }), fail > 0 ? 'warning' : 'success')
 }

@@ -1,12 +1,12 @@
 {
   "name": "TitanCore",
-  "version": "2.1.6",
+  "version": "2.1.7",
   "main": "dist-electron/main/index.js",
   "scripts": {
     "dev": "vite",
-    "build": "node -e \"try{fs.rmSync('dist',{recursive:true,force:true})}catch(e){}\" && vite build",
+    "build": "node -e \"const fs=require('fs');try{fs.rmSync('dist',{recursive:true,force:true})}catch(e){}\" && vite build",
     "preview": "vite preview",
-    "dist": "node -e \"try{fs.rmSync('dist',{recursive:true,force:true})}catch(e){};try{fs.rmSync('dist-electron',{recursive:true,force:true})}catch(e){};try{fs.rmSync('node_modules/electron/dist/ost',{recursive:true,force:true})}catch(e){};try{fs.rmSync('release/${version}',{recursive:true,force:true})}catch(e){}\" && vite build && electron-builder",
+    "dist": "node -e \"const fs=require('fs');try{fs.rmSync('dist',{recursive:true,force:true})}catch(e){};try{fs.rmSync('dist-electron',{recursive:true,force:true})}catch(e){};try{fs.rmSync('node_modules/electron/dist/ost',{recursive:true,force:true})}catch(e){};try{const v=JSON.parse(fs.readFileSync('package.json','utf8')).version;fs.rmSync('release/'+v,{recursive:true,force:true})}catch(e){}\" && vite build && electron-builder",
     "postinstall": "electron-rebuild -f -w better-sqlite3 -w bufferutil -w utf-8-validate",
     "build:native": "cmake-js compile --runtime=electron"
   },
@@ -62,14 +62,19 @@
       "!node_modules/utf-8-validate/prebuilds/linux-*",
       "!node_modules/utf-8-validate/prebuilds/win32-ia32*",
       "!node_modules/utf-8-validate/deps/**",
+      "!node_modules/utf-8-validate/src/**",
       "!node_modules/utf-8-validate/build/Release/*.iobj",
       "!node_modules/utf-8-validate/build/Release/*.ipdb",
       "!node_modules/bufferutil/prebuilds/darwin-*",
       "!node_modules/bufferutil/prebuilds/linux-*",
       "!node_modules/bufferutil/prebuilds/win32-ia32*",
       "!node_modules/bufferutil/deps/**",
+      "!node_modules/bufferutil/src/**",
       "!node_modules/bufferutil/build/Release/*.iobj",
       "!node_modules/bufferutil/build/Release/*.ipdb",
+      "!node_modules/**/build/Release/*.exp",
+      "!node_modules/**/build/Release/*.lib",
+      "!node_modules/**/build/Release/*.pdb",
       "!node_modules/**/build/Release/obj/**",
       "!node_modules/**/build/*.vcxproj*",
       "!node_modules/**/build/*.filters",
@@ -105,12 +110,6 @@
           "arch": [
             "x64"
           ]
-        },
-        {
-          "target": "portable",
-          "arch": [
-            "x64"
-          ]
         }
       ]
     },
@@ -143,14 +142,14 @@
     "typescript": "^6.0.3",
     "vite": "^7.3.5",
     "vite-plugin-electron": "^0.29.0",
-    "vue": "^3.5.38"
+    "vue": "^3.5.38",
+    "node-addon-api": "^8.3.0"
   },
   "dependencies": {
     "better-sqlite3": "^12.11.1",
     "bufferutil": "^4.1.0",
     "utf-8-validate": "^6.0.6",
-    "ws": "^8.18.0",
-    "node-addon-api": "^8.3.0"
+    "ws": "^8.18.0"
   },
   "description": "Titan Core - Steam Game Assistant",
   "author": "Titan Core Studio"

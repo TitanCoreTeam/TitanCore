@@ -201,7 +201,7 @@
             <div class="w-[1px] h-8 bg-white/10"></div>
 
             <!-- 窗口控制 -->
-            <div class="flex items-center gap-3">
+            <div class="flex items-center gap-3" data-win-control>
               <button @click="winControl.min()" class="w-4 h-4 rounded-full bg-green-500/80 hover:bg-green-400 transition-all hover:scale-110 shadow-lg shadow-green-500/20 cursor-pointer"></button>
               <button @click="winControl.max()" class="w-4 h-4 rounded-full bg-yellow-500/80 hover:bg-yellow-400 transition-all hover:scale-110 shadow-lg shadow-yellow-500/20 cursor-pointer"></button>
               <button @click="winControl.close()" class="w-4 h-4 rounded-full bg-red-500/80 hover:bg-red-400 transition-all hover:scale-110 shadow-lg shadow-red-500/20 cursor-pointer"></button>
@@ -506,7 +506,9 @@ watch(
 const isRestartingSteam = ref(false)
 const performanceMode = ref(false)
 
-const onCustomCursorPointerDown = () => {
+const onCustomCursorPointerDown = (e: MouseEvent) => {
+  const target = e.target as HTMLElement | null
+  if (target?.closest?.('[data-win-control]')) return
   if (currentTheme.value === 'paper') {
     document.documentElement.classList.add('paper-cursor-down')
   } else if (currentTheme.value === 'anime') {
@@ -676,8 +678,28 @@ const systemStatus = computed(() => {
   return 'syncing'
 })
 
+let minimizePending = false
 const winControl = {
-  min: () => window.electron?.window?.min?.(),
+  min: () => {
+    if (minimizePending) return
+    minimizePending = true
+    onCustomCursorPointerUp()
+    const active = document.activeElement as HTMLElement | null
+    if (active && typeof active.blur === 'function') active.blur()
+    const flushMinimize = () => {
+      if (!minimizePending) return
+      minimizePending = false
+      window.electron?.window?.min?.()
+    }
+    // Wait two frames (with a short fallback) so :active/cursor repaints settle before OS minimize
+    const fallbackTimer = setTimeout(flushMinimize, 48)
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        clearTimeout(fallbackTimer)
+        flushMinimize()
+      })
+    })
+  },
   max: () => window.electron?.window?.max?.(),
   close: () => window.electron?.window?.close?.()
 }
@@ -1238,14 +1260,14 @@ onMounted(async () => {
 
 onUnmounted(() => {
   isAppUnmounted = true
-  if (paperCursorListenersActive) {
-    paperCursorListenersActive = false
-    window.removeEventListener('mousedown', onPaperPointerDown)
-    window.removeEventListener('mouseup', onPaperPointerUp)
-    window.removeEventListener('blur', onPaperPointerUp)
-    document.documentElement.removeEventListener('mouseleave', onPaperPointerUp)
+  if (customCursorListenersActive) {
+    customCursorListenersActive = false
+    window.removeEventListener('mousedown', onCustomCursorPointerDown)
+    window.removeEventListener('mouseup', onCustomCursorPointerUp)
+    window.removeEventListener('blur', onCustomCursorPointerUp)
+    document.documentElement.removeEventListener('mouseleave', onCustomCursorPointerUp)
   }
-  document.documentElement.classList.remove('paper-cursor-active', 'paper-cursor-down')
+  document.documentElement.classList.remove('paper-cursor-active', 'paper-cursor-down', 'sakura-cursor-active', 'sakura-cursor-down')
   window.removeEventListener('titan-navigate', handleNavigationBroadcast)
   window.removeEventListener('feedback:new-reply', handleFeedbackReply)
   document.removeEventListener('visibilitychange', handleVisibilityChange)

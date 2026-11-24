@@ -96,7 +96,7 @@
       <div class="w-px h-4 mx-1.5 bg-white/[0.12]"></div>
 
       <!-- 纯银极简线性窗口控制键 -->
-      <div class="flex items-center gap-1.5">
+      <div class="flex items-center gap-1.5" data-win-control>
         <button 
           type="button"
           @click="winControl.min()" 

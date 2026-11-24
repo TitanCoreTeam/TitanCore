@@ -86,9 +86,11 @@ app.commandLine.appendSwitch('enable-gpu-rasterization')
 const gotTheLock = app.requestSingleInstanceLock()
 if (!gotTheLock) {
   app.quit()
+  Logger.warn('Main', '单实例锁获取失败（后台已有 TitanCore 实例运行），当前进程退出。argv =', process.argv)
   process.exit(0)
 } else {
   app.on('second-instance', (_event, argv) => {
+    Logger.info('Main', '收到 second-instance 唤醒信号, winExists =', !!win, 'isDestroyed =', win ? win.isDestroyed() : 'N/A', 'isVisible =', win && !win.isDestroyed() ? win.isVisible() : 'N/A', 'argv =', argv)
     enqueueOrDispatchDeepLink(argv)
     if (win) {
       if (win.isMinimized()) win.restore()
@@ -244,7 +246,18 @@ function setupAppProtocolAndNetwork() {
 function registerGlobalIPC() {
   ipcMain.handle('get-desktop-audio-source', async () => (await desktopCapturer.getSources({ types: ['screen'] }))[0]?.id || '')
 
-  ipcMain.on('win-min', () => win?.minimize())
+  ipcMain.on('win-min', () => {
+    if (win && !win.isDestroyed() && !win.isMinimized()) {
+      win.minimize()
+    }
+  })
+  ipcMain.handle('sys:set-window-bg', (_event, color: string) => {
+    if (win && !win.isDestroyed() && typeof color === 'string' && /^#[0-9a-fA-F]{6}$/.test(color)) {
+      try {
+        win.setBackgroundColor(color)
+      } catch {}
+    }
+  })
   ipcMain.on('win-max', () => {
     if (!win || win.isDestroyed()) return
     if (win.isMaximized()) {
@@ -448,7 +461,7 @@ async function createWindow(isFirstLaunch: boolean) {
     minWidth: 960,
     minHeight: 640,
     frame: false,
-    titleBarStyle: 'hidden',
+    // 使用纯粹的 frame: false 无边框模式，避免与 titleBarStyle: 'hidden' 叠加引发 Win11 最小化闪烁
     show: false,
     icon: appIcon,
     backgroundColor: '#000000',
@@ -464,9 +477,13 @@ async function createWindow(isFirstLaunch: boolean) {
   Logger.attachWindowDiagnostics(win)
 
   let windowShown = false
-  const showMainWindow = () => {
-    if (windowShown || !win || win.isDestroyed() || isQuitting) return
+  const showMainWindow = (reason: string) => {
+    if (windowShown || !win || win.isDestroyed() || isQuitting) {
+      if (!windowShown) Logger.warn('Window', `showMainWindow(${reason}) 被跳过: destroyed=${win?.isDestroyed()}, isQuitting=${isQuitting}`)
+      return
+    }
     windowShown = true
+    Logger.info('Window', `执行主窗口送显 (${reason}), bounds =`, win.getBounds(), 'isMaximized =', isMaximized)
     if (isMaximized && !win.isMaximized()) {
       win.maximize()
     }
@@ -475,12 +492,13 @@ async function createWindow(isFirstLaunch: boolean) {
 
   // 1. 首选：前端 Vue 真正挂载完成并完成握手 (sys:client-ready) 时优雅送显，物理根绝白屏
   win.once('titan:ui-ready' as any, () => {
-    showMainWindow()
+    showMainWindow('titan:ui-ready')
   })
 
   // 2. 兜底：ready-to-show 后 1500ms 硬超时保护，防止极端脚本异常造成窗口假死
   win.once('ready-to-show', () => {
-    setTimeout(showMainWindow, 1500)
+    Logger.info('Window', '触发 ready-to-show 事件')
+    setTimeout(() => showMainWindow('ready-to-show-fallback'), 1500)
   })
 
   win.on('close', (e) => {
@@ -527,7 +545,10 @@ async function createWindow(isFirstLaunch: boolean) {
     await win.loadURL('http://127.0.0.1:5173')
     win.webContents.openDevTools({ mode: 'detach' })
   } else {
-    await win.loadFile(path.join(__dirname, '../../dist/index.html'))
+    const htmlPath = path.join(__dirname, '../../dist/index.html')
+    Logger.info('Window', '开始加载生产页面:', htmlPath)
+    await win.loadFile(htmlPath)
+    Logger.info('Window', '生产页面 loadFile 调用返回')
   }
 
   win.on('closed', () => (win = null))

@@ -37,13 +37,21 @@ export class DiagnosticExportService {
         }
       }
 
-      // 2. 搜集轨道二：OST 底座全量模块日志与配置
-      const ostLogCandidates: string[] = [
-        path.join(ModeSwitchService.ostDir, 'opensteamtool')
-      ]
+      // 2. 搜集轨道二：OST 底座全量模块日志与配置（跟随当前活根模式优先采集）
+      const ostMode = ModeSwitchService.getMode()
       const steamPath = SteamDetector.lastDetectedPath
-      if (steamPath) {
+      const ostLogCandidates: string[] = []
+      const tomlCandidates: string[] = []
+      if (ostMode === 'classic' && steamPath) {
         ostLogCandidates.push(path.join(steamPath, 'opensteamtool'))
+        ostLogCandidates.push(path.join(ModeSwitchService.ostDir, 'opensteamtool'))
+        tomlCandidates.push(path.join(steamPath, 'opensteamtool.toml'))
+        tomlCandidates.push(path.join(ModeSwitchService.ostDir, 'opensteamtool.toml'))
+      } else {
+        ostLogCandidates.push(path.join(ModeSwitchService.ostDir, 'opensteamtool'))
+        if (steamPath) ostLogCandidates.push(path.join(steamPath, 'opensteamtool'))
+        tomlCandidates.push(path.join(ModeSwitchService.ostDir, 'opensteamtool.toml'))
+        if (steamPath) tomlCandidates.push(path.join(steamPath, 'opensteamtool.toml'))
       }
 
       const ostTargetDir = path.join(tempWorkDir, 'ost')
@@ -67,13 +75,15 @@ export class DiagnosticExportService {
         }
       }
 
-      // 顺带检查并搜集 ost 根目录下的 opensteamtool.toml（纯净模式默认位置）
-      const rootToml = path.join(ModeSwitchService.ostDir, 'opensteamtool.toml')
-      if (fs.existsSync(rootToml) && !fs.existsSync(path.join(ostTargetDir, 'opensteamtool.toml'))) {
-        try {
-          fs.mkdirSync(ostTargetDir, { recursive: true })
-          fs.copyFileSync(rootToml, path.join(ostTargetDir, 'opensteamtool.toml'))
-        } catch {}
+      // 顺带检查并搜集活根下的 opensteamtool.toml
+      for (const rootToml of tomlCandidates) {
+        if (fs.existsSync(rootToml) && !fs.existsSync(path.join(ostTargetDir, 'opensteamtool.toml'))) {
+          try {
+            fs.mkdirSync(ostTargetDir, { recursive: true })
+            fs.copyFileSync(rootToml, path.join(ostTargetDir, 'opensteamtool.toml'))
+            break
+          } catch {}
+        }
       }
 
       // 3. 搜集轨道三：Steam 官方客户端连接与更新日志

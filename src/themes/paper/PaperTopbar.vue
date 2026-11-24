@@ -93,7 +93,7 @@
       <div class="w-px h-4 mx-1" style="background: rgba(90, 78, 56, 0.14);"></div>
 
       <!-- 柔和木质蜡笔三色窗口点 -->
-      <div class="flex items-center gap-2 pl-0.5">
+      <div class="flex items-center gap-2 pl-0.5" data-win-control>
         <button
           type="button"
           @click="winControl.min()"

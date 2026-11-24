@@ -79,7 +79,9 @@
   --header-transform: none;
 }
 
-[data-theme='anime'] body {
+[data-theme='anime'],
+[data-theme='anime'] body,
+[data-theme='anime'] #app {
   background-color: #fff6fa;
   color: #4a2c40;
   font-family: var(--font-sakura-ui);
@@ -127,7 +129,9 @@
   --header-transform: none;
 }
 
-[data-theme='minimal'] body {
+[data-theme='minimal'],
+[data-theme='minimal'] body,
+[data-theme='minimal'] #app {
   background-color: #04060b;
   color: #f8fafc;
   font-family: var(--font-spatial-ui);
@@ -189,7 +193,9 @@
   --paper-red: #ba5243;
 }
 
-[data-theme='paper'] body {
+[data-theme='paper'],
+[data-theme='paper'] body,
+[data-theme='paper'] #app {
   background-color: #f4efe2;
   color: #353024;
   font-family: var(--font-paper-ui);
@@ -366,6 +372,24 @@ body {
 .animate-fade-in { animation: fadeIn 0.4s ease-out forwards; }
 
 html.performance-mode *, .performance-mode * { animation-play-state: paused !important; }
+html.performance-mode,
+.performance-mode {
+  --swal2-show-animation: none;
+  --swal2-hide-animation: none;
+  --swal2-toast-show-animation: none;
+  --swal2-toast-hide-animation: none;
+  --swal2-backdrop-transition: none;
+}
+html.performance-mode .swal2-container,
+html.performance-mode .swal2-container *,
+.performance-mode .swal2-container,
+.performance-mode .swal2-container * {
+  animation-play-state: running !important;
+}
+html.performance-mode .swal2-popup,
+.performance-mode .swal2-popup {
+  transition: none !important;
+}
 .performance-mode .animate-fade-in, .performance-mode .animate-fade-in-up {
   animation: none !important;
   opacity: 1 !important;

@@ -17,7 +17,7 @@ interface Window {
       getUserLibrary: () => Promise<any[]>
       removeUserLibrary: (resourceId: string) => Promise<boolean>
       runDiagnostics: () => Promise<any>
-      launchGame: (appId: string) => Promise<any>
+      launchGame: (appId: string, options?: { onlineFix?: boolean; realAppId?: boolean }) => Promise<any>
       proxyPost: (url: string, body: any) => Promise<any>
       checkUpdate: () => Promise<any>
       getVersion: () => Promise<string>

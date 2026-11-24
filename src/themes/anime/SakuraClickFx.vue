@@ -107,6 +107,7 @@ const COLORS = ['#FF7EB3', '#FF99C8', '#FFB3D6', '#F472B6', '#FDA4AF']
 
 function handleWindowMouseDown(e: MouseEvent) {
   if (props.performanceMode || document.hidden) return
+  if ((e.target as HTMLElement | null)?.closest?.('[data-win-control]')) return
   // 内置小游戏全屏游玩时不触发花瓣，避免遮挡准星
   if (document.querySelector('.paper-exempt-minigame')) return
 

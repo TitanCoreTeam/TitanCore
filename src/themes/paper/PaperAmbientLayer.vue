@@ -254,6 +254,7 @@ function onWindowKeyDown() {
 }
 
 function onWindowResize() {
+  if (document.hidden || window.innerWidth < 320 || window.innerHeight < 240) return
   if (isSleeping.value) {
     syncCanvasSizes()
   }

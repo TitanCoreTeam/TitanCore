@@ -51,12 +51,26 @@ Var tcDirAutoCorrected
     Pop $R0
 !macroend
 
-; 判断路径是否落入禁止目录（Program Files / Program Files (x86) / AppData\Local\Programs）；IN_VAR/OUT_VAR 不可传入 $R5/$R6
+; 判断路径是否落入禁止目录（裸盘符根目录 / Program Files / Program Files (x86) / AppData\Local\Programs）；IN_VAR/OUT_VAR 不可传入 $R5/$R6
 !macro TC_IS_FORBIDDEN_DIR IN_VAR OUT_VAR
     Push $R5
     Push $R6
     StrCpy ${OUT_VAR} "0"
-    ${If} "${IN_VAR}" == ""
+    StrCpy $R6 "${IN_VAR}"
+    ${Do}
+        StrLen $R5 "$R6"
+        ${If} $R5 == 0
+            ${ExitDo}
+        ${EndIf}
+        StrCpy $R5 "$R6" 1 -1
+        ${If} $R5 == "\"
+            StrCpy $R6 "$R6" -1
+        ${Else}
+            ${ExitDo}
+        ${EndIf}
+    ${Loop}
+    StrLen $R5 "$R6"
+    ${If} $R5 <= 3
         StrCpy ${OUT_VAR} "1"
     ${Else}
         StrCpy $R5 0
@@ -453,13 +467,21 @@ Function tcAfterInstallModeLeave
 FunctionEnd
 !endif
 
-; 进入文件释放前一瞬间：二次兜底拦截受保护路径、静默清场所有运行中的进程，并清理 UninstallString
+; 进入文件释放前一瞬间：二次兜底拦截受保护路径、归一化末尾反斜杠、静默清场所有运行中的进程，并清理 UninstallString
 Function tcPrepareOverwriteInstall
     !insertmacro GetDParameter $R0
     ${If} $R0 == ""
         !insertmacro TC_IS_FORBIDDEN_DIR "$INSTDIR" $0
         ${If} $0 == "1"
             !insertmacro TC_PICK_DEFAULT_DIR $INSTDIR
+        ${EndIf}
+    ${EndIf}
+    ; 归一化安装路径：剥离末尾多余反斜杠（如 F:\Tools\TitanCore\ -> F:\Tools\TitanCore），保留盘符根路径
+    StrLen $R0 "$INSTDIR"
+    ${If} $R0 > 3
+        StrCpy $R1 "$INSTDIR" 1 -1
+        ${If} $R1 == "\"
+            StrCpy $INSTDIR "$INSTDIR" -1
         ${EndIf}
     ${EndIf}
     Call tcKillRunningProcesses
@@ -528,8 +550,11 @@ FunctionEnd
 ; ==========================================
 !macro customRemoveFiles
     ${IfNot} ${isUpdated}
-        SetOutPath $TEMP
-        RMDir /r $INSTDIR
+        StrLen $R0 "$INSTDIR"
+        ${If} $R0 > 3
+            SetOutPath $TEMP
+            RMDir /r $INSTDIR
+        ${EndIf}
     ${EndIf}
 !macroend
 

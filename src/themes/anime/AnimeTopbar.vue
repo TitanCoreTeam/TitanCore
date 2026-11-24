@@ -78,7 +78,7 @@
       <div class="w-[1px] h-4 mx-1 bg-[#f5cde0]"></div>
 
       <!-- 窗口控制三色果冻糖豆 -->
-      <div class="flex items-center gap-2 pl-0.5">
+      <div class="flex items-center gap-2 pl-0.5" data-win-control>
         <button 
           type="button"
           @click="winControl.min()" 

@@ -273,6 +273,8 @@
       "rule1": "1. Works only with friends using the same patch. Incompatible with official multiplayer.",
       "rule2": "2. Run one game at a time. Multi-launching can cause engine conflicts.",
       "rule3": "3. Always launch from TitanCore. Ensure the game is already installed.",
+      "realAppIdOpt": "Compatibility mode (this launch only: check if stuck on black/loading screen)",
+      "pureNeedSteamFirst": "Pure Mode requires Steam to be launched from TitanCore first. Please click Start Steam at the top, sign in, and try again.",
       "btn": "Play Now",
       "failTitle": "Launch Failed",
       "noAppId": "Invalid AppID",

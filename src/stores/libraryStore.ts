@@ -158,7 +158,7 @@ export const useLibraryStore = defineStore('library', () => {
     try {
       await window.electron.sys.removeUserLibrary(resourceId)
       await load()
-      await pushCloud()
+      void pushCloud()
     } catch (e) {
       console.error('[LibraryStore] removeItem 失败:', e)
       throw e

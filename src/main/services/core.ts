@@ -34,6 +34,7 @@ import { DiagnosticExportService } from './DiagnosticExportService'
 import { ShareGateService } from './ShareGateService'
 import { DepotHealerService } from './DepotHealerService'
 import { AchievementSyncService } from './AchievementSyncService'
+import { WinNative } from '../utils/winNative'
 
 // 进程保活：杜绝 dev 调试时因微小未捕获异步异常导致闪退
 process.on('uncaughtException', (err) => {
@@ -46,9 +47,9 @@ process.on('unhandledRejection', (reason) => {
 
 const TITAN_SALT = process.env.TITAN_SALT || 'TITAN_COMMUNITY_DEFAULT_SALT'
 const DEFAULT_NODES: Record<string, string> = {
-  node1: 'TITAN-==QI7wDO+hzJnojJ3YxIo4DK8A3WdNFHqVQZxkTKmISNo03fl1TMg0DP',
-  node2: 'TITAN-=EzI8kSYzYCN+ATLeoDKgASOmdiLrEXUcFVR40VOzMiOrE2N703fl1TMg0DP',
-  node3: 'TITAN-=EzI8kSYzYCN+ATLeoDKgASOmdiLrE3AEMAXqU1My0CKt1HJl03fl1TMg0DP'
+  node1: process.env.TITAN_NODE_1 || '',
+  node2: process.env.TITAN_NODE_2 || '',
+  node3: process.env.TITAN_NODE_3 || ''
 }
 
 let activeNodeUrls: Record<string, string> | null = null
@@ -1057,11 +1058,51 @@ export function initCore(mainWindow: BrowserWindow, isFirstLaunch = false) {
 
   // 纯净原生极速拉起：0毫秒IO、零误报、交由 Steam 原生调度决策
   ipcMain.removeHandler('titan:launch-game')
-  ipcMain.handle('titan:launch-game', async (_e, appId: string) => {
+  ipcMain.handle('titan:launch-game', async (_e, appId: string, options?: { onlineFix?: boolean; realAppId?: boolean }) => {
     const cleanAppId = String(appId).replace(/^steam_gate_/, '').trim()
     if (!/^\d+$/.test(cleanAppId)) return { success: false, msg: 'ERR_INVALID_APPID' }
 
     try {
+      if (options?.onlineFix) {
+        if (ModeSwitchService.getMode() === 'pure' && !WinNative.isProcessRunning('steam.exe')) {
+          return { success: false, msg: 'ERR_PURE_STEAM_NOT_RUNNING' }
+        }
+        const extraArgs = ['-onlinefix']
+        if (options.realAppId) extraArgs.push('-realappid')
+        const launchUri = `steam://run/${cleanAppId}//${encodeURIComponent(extraArgs.join(' '))}/`
+        const det = await SteamDetector.detect().catch(() => null)
+        const steamExe = det?.path ? path.join(det.path, 'steam.exe') : ''
+        if (steamExe && fs.existsSync(steamExe)) {
+          const cleanEnv = { ...process.env, CR_STATE_DIR: ModeSwitchService.ostDir }
+          const spawned = await new Promise<boolean>((resolve) => {
+            let settled = false
+            const done = (ok: boolean) => {
+              if (settled) return
+              settled = true
+              resolve(ok)
+            }
+            try {
+              const child = spawn(steamExe, ['-applaunch', cleanAppId, ...extraArgs], {
+                detached: true,
+                stdio: 'ignore',
+                cwd: path.dirname(steamExe),
+                env: cleanEnv
+              })
+              child.once('error', () => done(false))
+              child.once('spawn', () => {
+                child.unref()
+                done(true)
+              })
+            } catch {
+              done(false)
+            }
+          })
+          if (spawned) return { success: true, msg: 'LAUNCH_OK' }
+        }
+        await shell.openExternal(launchUri)
+        return { success: true, msg: 'LAUNCH_OK' }
+      }
+
       await shell.openExternal(`steam://run/${cleanAppId}`)
       return { success: true, msg: 'LAUNCH_OK' }
     } catch (e: any) {

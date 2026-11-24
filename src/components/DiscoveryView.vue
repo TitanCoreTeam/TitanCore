@@ -482,6 +482,7 @@ const onCollect = async (item: any) => {
 // 网格断点：纸境与未来空间窄侧栏默认 6 列，初樱气泡宽侧栏自适应 5~6 列
 const updateColumns = () => {
   const w = window.innerWidth
+  if (w < 320) return
   if (currentTheme.value === 'paper' || currentTheme.value === 'minimal') {
     if (w < 960) currentColumns.value = 4
     else if (w < 1200) currentColumns.value = 5

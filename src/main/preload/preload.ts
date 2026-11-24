@@ -30,7 +30,7 @@ contextBridge.exposeInMainWorld('electron', {
     getUserLibrary: () => ipcRenderer.invoke('sys:get-user-library'),
     removeUserLibrary: (resourceId: string) => ipcRenderer.invoke('sys:remove-user-library', resourceId),
     runDiagnostics: () => ipcRenderer.invoke('titan:run-diagnostics'),
-    launchGame: (appId: string) => ipcRenderer.invoke('titan:launch-game', appId),
+    launchGame: (appId: string, options?: { onlineFix?: boolean; realAppId?: boolean }) => ipcRenderer.invoke('titan:launch-game', appId, options),
     proxyPost: (url: string, body: any) => ipcRenderer.invoke('sys:proxy-post', { url, body }),
     checkUpdate: () => ipcRenderer.invoke('app:check-update'),
     getVersion: () => ipcRenderer.invoke('app:get-version'),

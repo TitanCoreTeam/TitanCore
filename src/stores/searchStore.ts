@@ -160,7 +160,7 @@ export const useSearchStore = defineStore('search', () => {
 
     const redList = radarRules.value.red.map(String)
     const yellowList = radarRules.value.yellow.map(String)
-    const fallbackYellow = ['2698940', '33230', '801800', '3483510', '1912410', '1774580', '4570720', '953580', '2161700', '2842040', '1971870', '287700', '2751000', '271590', '3240220', '4356430', '4855450']
+    const fallbackYellow = ['33230', '801800', '3483510', '1912410', '1774580', '4570720', '953580', '2161700', '2842040', '1971870', '287700', '2751000', '271590', '3240220', '4356430', '4855450']
 
     if (redList.includes(cleanId)) return 'red'
     if (yellowList.includes(cleanId) || fallbackYellow.includes(cleanId)) return 'yellow'

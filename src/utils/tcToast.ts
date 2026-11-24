@@ -34,15 +34,51 @@ export function tcToast(title: string, text?: string, type: TcToastType = 'succe
   const isMinimal = currentTheme === 'minimal'
   const isPaper = currentTheme === 'paper'
 
+  const duration = type === 'error' ? 4200 : 2600
+  let fallbackTimer: ReturnType<typeof setTimeout> | null = null
+
   Swal.fire({
     toast: true,
     position: 'top-end',
     showConfirmButton: false,
-    timer: type === 'error' ? 4200 : 2600,
+    timer: duration,
     timerProgressBar: true,
     title,
     text,
     icon: type,
+    didOpen: (toast) => {
+      toast.style.cursor = 'pointer'
+      toast.addEventListener('click', () => {
+        if (Swal.getPopup() === toast) {
+          Swal.close()
+        } else {
+          toast.closest('.swal2-container')?.remove()
+        }
+      })
+    },
+    willClose: (popup) => {
+      fallbackTimer = setTimeout(() => {
+        if (popup.isConnected) {
+          try {
+            popup.dispatchEvent(new AnimationEvent('animationend'))
+          } catch {}
+        }
+        const container = popup.closest('.swal2-container')
+        if (container?.isConnected) {
+          container.remove()
+          if (!document.querySelector('.swal2-container')) {
+            document.documentElement.classList.remove('swal2-shown', 'swal2-height-auto', 'swal2-no-backdrop', 'swal2-toast-shown')
+            document.body.classList.remove('swal2-shown', 'swal2-height-auto', 'swal2-no-backdrop', 'swal2-toast-shown')
+          }
+        }
+      }, 300)
+    },
+    didDestroy: () => {
+      if (fallbackTimer) {
+        clearTimeout(fallbackTimer)
+        fallbackTimer = null
+      }
+    },
     background: isAnime 
       ? '#ffffff' 
       : (isPaper ? '#fffdf7' : (isMinimal ? 'rgba(16, 22, 35, 0.95)' : '#0a0a0f')),
