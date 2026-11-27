@@ -26,9 +26,10 @@
 
 [![GitHub Star](https://img.shields.io/github/stars/TitanCoreTeam/TitanCore?style=flat-square&color=f1c40f)](https://github.com/TitanCoreTeam/TitanCore/stargazers)
 [![GitHub Fork](https://img.shields.io/github/forks/TitanCoreTeam/TitanCore?style=flat-square&color=2ecc71)](https://github.com/TitanCoreTeam/TitanCore/network/members)
-[![GitHub Repo Languages](https://img.shields.io/github/languages/top/TitanCoreTeam/TitanCore?style=flat-square&color=e74c3c)](https://github.com/TitanCoreTeam/TitanCore/search?l=c%23)
-[![NET 7.0](https://img.shields.io/badge/dotnet-7.0-512bd4.svg?style=flat-square&color=512bd4)](https://learn.microsoft.com/zh-cn/dotnet/core/whats-new/dotnet-7)
-[![C# 11](https://img.shields.io/badge/c%23-11-239120.svg?style=flat-square&color=239120)](https://learn.microsoft.com/zh-cn/dotnet/csharp/whats-new/csharp-11)
+[![GitHub Repo Languages](https://img.shields.io/github/languages/top/TitanCoreTeam/TitanCore?style=flat-square&color=e74c3c)](https://github.com/TitanCoreTeam/TitanCore/search?l=typescript)
+[![Electron](https://img.shields.io/badge/Electron-42-47848F.svg?style=flat-square&logo=electron&logoColor=white)](https://www.electronjs.org/)
+[![Vue 3](https://img.shields.io/badge/Vue-3.5-4FC08D.svg?style=flat-square&logo=vue.js&logoColor=white)](https://vuejs.org/)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg?style=flat-square)](./LICENSE)
 
 [![TitanCore玩家社区](https://img.shields.io/badge/TitanCore玩家社区-modvips.com-222222.svg?style=flat-square&color=222222&logo=homebrew)](https://www.modvips.com/)
 [![GitHub Star](https://img.shields.io/github/stars/TitanCoreTeam/TitanCore.svg?logo=github&style=flat-square)](https://github.com/TitanCoreTeam/TitanCore)
